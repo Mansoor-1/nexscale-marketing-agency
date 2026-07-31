@@ -1,17 +1,48 @@
+document.addEventListener("DOMContentLoaded", function () {
 
-const menu=document.querySelector('.menu');
-const nav=document.querySelector('nav');
-if(menu) menu.addEventListener('click',()=>nav.classList.toggle('open'));
-document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>nav.classList.remove('open')));
-const form=document.querySelector('#contact-form');
-if(form){
-  form.addEventListener('submit',e=>{
-    e.preventDefault();
-    const data=new FormData(form);
-    const subject=encodeURIComponent('New NexScale Website Inquiry');
-    const body=encodeURIComponent(
-      `Name: ${data.get('name')}\nEmail: ${data.get('email')}\nService: ${data.get('service')}\nMessage: ${data.get('message')}`
-    );
-    window.location.href=`mailto:hello@nexscale.example?subject=${subject}&body=${body}`;
-  });
-}
+  const menuButton = document.querySelector(".menu-btn");
+  const navigation = document.querySelector(".main-nav");
+
+  if (menuButton && navigation) {
+    menuButton.addEventListener("click", function () {
+      navigation.classList.toggle("open");
+    });
+
+    navigation.querySelectorAll("a").forEach(function (link) {
+      link.addEventListener("click", function () {
+        navigation.classList.remove("open");
+      });
+    });
+  }
+
+  const form = document.getElementById("contact-form");
+
+  if (form) {
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const service = document.getElementById("service").value;
+      const message = document.getElementById("message").value;
+
+      const subject = encodeURIComponent(
+        "New NexScale Website Inquiry"
+      );
+
+      const body = encodeURIComponent(
+        "Name: " + name +
+        "\nEmail: " + email +
+        "\nService: " + service +
+        "\n\nMessage:\n" + message
+      );
+
+      window.location.href =
+        "mailto:hello@nexscale.com?subject=" +
+        subject +
+        "&body=" +
+        body;
+    });
+  }
+
+});
